@@ -67,12 +67,12 @@ def update_slider():
 
 array = Box(app, layout="grid", grid=[0,0])
 array2 = Box(app, layout="grid", grid=[0,1])
-rpm1_image = "rpm1.png"
-rpm2_image = "rmp2.png"
-azimuth_image = "azimuth.png"
-logo = "Logo.png"
-launchAngle_image = "launchAngle.png"
-adjust_image = "adjust.png"
+rpm1_image = "GUI/rpm1.png"
+rpm2_image = "GUI/rmp2.png"
+azimuth_image = "GUI/azimuth.png"
+logo = "GUI/Logo.png"
+launchAngle_image = "GUI/launchAngle.png"
+adjust_image = "GUI/adjust.png"
 
 spacer = Box(array, grid=[0,0], width = 100, height=50);
 rpm1 = Picture(array, image=rpm1_image, grid=[0, 1], width=256, height=100);

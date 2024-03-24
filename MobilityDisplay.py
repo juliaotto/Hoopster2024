@@ -84,17 +84,17 @@ time.sleep(0.5)
 #ser.write(bytes('x', 'UTF-8'))
 
 # Load images (replace these with the paths to your image files)
-left_arrow_image = "Left.png"
-up_arrow_image = "Forward.png"
-right_arrow_image = "Right.png"
-logo = "Logo1.png"
-backward = "Backward.png"
-FRight = "ForwardRight.png"
-BRight = "BackwardRight.png"
-FLeft = "ForwardLeft.png"
-BLeft = "BackwardLeft.png"
-rotate_right = "RotateRight3.png"
-rotate_left = "RotateLeft3.png"
+left_arrow_image = "GUI/Left.png"
+up_arrow_image = "GUI/Forward.png"
+right_arrow_image = "GUI/Right.png"
+logo = "GUI/Logo1.png"
+backward = "GUI/Backward.png"
+FRight = "GUI/ForwardRight.png"
+BRight = "GUI/BackwardRight.png"
+FLeft = "GUI/ForwardLeft.png"
+BLeft = "GUI/BackwardLeft.png"
+rotate_right = "GUI/RotateRight3.png"
+rotate_left = "GUI/RotateLeft3.png"
 
 button_left = PushButton(array, image=left_arrow_image, grid=[0, 1], width=195, height=195);
 button_up = PushButton(array, image=up_arrow_image, grid=[1, 0], width=195, height=195)
