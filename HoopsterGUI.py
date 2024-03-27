@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 import time
 
 # Create a VideoCapture object
-cap = cv2.VideoCapture(0)  # Change the index to select the correct camera
+cap = cv2.VideoCapture(1)  # Change the index to select the correct camera
 
 # Set the resolution
 cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
