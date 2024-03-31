@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 import time
 
 # Create a VideoCapture object
-cap = cv2.VideoCapture(1)  # Change the index to select the correct camera
+cap = cv2.VideoCapture(0)  # Change the index to select the correct camera
 
 # Set the resolution
 cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
@@ -21,6 +21,8 @@ print(f'Resolution is set to: {width}x{height}')
 # Create a guizero app
 app = App(title = "Hoopster", layout = "grid", bg = (211, 211, 211), width = 1024, height = 600)
 window = Window(app, title = "Launching",  bg= "white", width = 1024, height = 600, visible = False)
+countdownWindow = Window(app, title = "Countdown",  bg= "white", width = 1024, height = 600, visible = False)
+
 
 # Create a Picture widget for the live feed
 live_feed = Picture(app, grid=[0,0], align="right")  # Adjust the grid coordinates as needed
@@ -163,10 +165,19 @@ anom = Text(row6, text="ANOMALY DETECTED", grid=[1,0], align="left")
 ready = Text(row7, text="READY FOR LAUNCH", grid=[1,0], align="left")
 
 
+# Create a Picture widget for the countdown window
+#countdown_image = Picture(countdownWindow, image="GUI/BackUp.png")
+
+
+
 
 def launch_countdown():
     if set_trig and ready_status.image == "GUI/Check.png":
-        app.repeat(1000, update_timer)
+        countdownWindow.show()
+        app.hide()
+        countdownWindow.repeat(1000, update_timer)
+        
+
     else:
         print("Not ready for launch. Set Hoopster first.")
 
@@ -181,7 +192,7 @@ def launch():
         
         
         launched = True
-        window.show()
+        countdownWindow.show()
         app.hide()
         
     else:
@@ -233,7 +244,15 @@ def abort_fun():
     ang_status.image = "GUI/NotCheck.png"
     vel_status.image = "GUI/NotCheck.png"
     ready_status.image = "GUI/NotCheck.png"
-    
+
+def abort_fun2():
+    global countdown
+    app.cancel(update_timer)
+    app.show()
+    clock_dis.value = "5"
+    countdown = 5
+    countdownWindow.hide()
+    abort_fun()
 
 def detect_anomaly():
     #implement function that detects anomaly through sensor
@@ -269,12 +288,13 @@ abort.bg="#CC6600";
 
 pad2 = Box(app,  height=20, width=65, grid=[3,0])
 
-box3 = Box(app, layout = "grid", grid=[5,0], align="left")
+box3 = Box(countdownWindow, layout = "grid", grid=[5,0], align="center")
+abort2 = PushButton(countdownWindow,text="Abort",image="GUI/AbortButton.png", command=abort_fun2, grid=[10,10], align="center",width=350, height = 125)
 #timer = Text(box3, grid=[0,0], text="Launch Countdown", align="right")
-timer = Picture(box3, grid=[0,0], image="GUI/LaunchCountdown.png", align="right", width=275, height=40)
+timer = Picture(box3, grid=[0,0], image="GUI/BackUp.png", align="right", width=715, height=104)
 
 clock_dis = Text(box3, text="5", grid=[0,1])
-clock_dis.text_size = 48
+clock_dis.text_size = 250
 clock_dis.text_color = "#990000"
 countdown = 5
 
@@ -316,18 +336,18 @@ reset.bg="black"
 def update_timer():
     global countdown
     countdown -= 1
-    timer.image = "GUI/BackUp.png"
+    #timer.image = "GUI/BackUp.png"
     
     clock_dis.value = str(countdown)
     
     if countdown == 0:
         launch()
         app.cancel(update_timer)
-        timer.image = "GUI/LaunchCountdown.png"
+        #timer.image = "GUI/BackUp.png"
         clock_dis.value = "5"
         countdown = 5
-
-        
+        window.show()
+        countdownWindow.hide()
 
 def update_stats():
     successes.clear()
